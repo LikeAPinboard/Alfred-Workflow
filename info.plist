@@ -25,7 +25,7 @@
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>lap-search-tool</string>
+	<string>LikeAPinboard</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -89,6 +89,6 @@
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string>http://blog.wnotes.net</string>
+	<string>http://likeapinboard.com</string>
 </dict>
 </plist>
