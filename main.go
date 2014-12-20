@@ -65,13 +65,13 @@ func main() {
 }
 
 func sendSearchRequest(requestURL, requestToken string, query url.Values) (resp *http.Response, err error, msg string) {
-	if request, err := http.NewRequest("GET", requestURL+"search?"+query.Encode(), nil); err != nil {
+	if request, err := http.NewRequest("GET", requestURL+"/search?"+query.Encode(), nil); err != nil {
 		return nil, err, "Unexpected Error NewRequest()"
 	} else {
 		request.Header.Set("X-LAP-Token", requestToken)
 		client := &http.Client{}
 		if resp, err := client.Do(request); err != nil {
-			return nil, err, "Request Error. Check server setting"
+			return nil, err, "Request Error. Server disabled or Token is invalid."
 		} else {
 			return resp, nil, ""
 		}
