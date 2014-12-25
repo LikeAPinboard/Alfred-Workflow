@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"encoding/xml"
 	"fmt"
@@ -34,7 +35,7 @@ type ServerResponseItem struct {
 }
 
 func main() {
-	args := os.Args[1:]
+	arg := os.Args[1]
 	config, ok, msg := loadConfig()
 	if !ok {
 		fmt.Println(errorXML(msg))
@@ -44,8 +45,17 @@ func main() {
 	requestURL, _ := config["url"]
 	requestToken, _ := config["token"]
 
+	query := string(bytes.TrimSpace([]byte(arg)))
+	queries := []string{}
+
+	for _, v := range strings.Split(query, " ") {
+		if len([]rune(v)) > 1 {
+			queries = append(queries, v)
+		}
+	}
+
 	val := url.Values{}
-	val.Add("q", strings.Join(args, " "))
+	val.Add("q", strings.Join(queries, " "))
 
 	if resp, err, msg := sendSearchRequest(requestURL, requestToken, val); err != nil {
 		fmt.Println(errorXML(msg))
